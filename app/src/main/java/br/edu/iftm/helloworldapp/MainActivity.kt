@@ -1,5 +1,7 @@
 package br.edu.iftm.helloworldapp
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -23,9 +25,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import br.edu.iftm.helloworldapp.ui.theme.HelloWorldAppTheme
 import kotlin.random.Random
 
@@ -37,9 +39,8 @@ class MainActivity : ComponentActivity() {
             HelloWorldAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                        Greeting(name = "Renato", modifier = Modifier.padding(innerPadding))
-
-
+                    BotaoLigar(name="Mara", context=applicationContext)
+                    BotaoTrocarTela(name="OneActivity", context = applicationContext)
                 }
             }
         }
@@ -83,7 +84,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxWidth()
         ){
             Text(
-                text = "Hello $name!",
+                text = "Ligar para $name!",
                 fontSize = 30.sp,
                 color = Color.Blue
 
@@ -93,6 +94,78 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 }
 
+
+@Composable
+fun BotaoTrocarTela(name: String, modifier: Modifier = Modifier, context: Context) {
+    Column (
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center){
+        Button(onClick={
+            val intent = Intent(context, OneActivity::class.java).apply {
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+
+        },
+            modifier = modifier.fillMaxWidth()
+        ){
+            Text(
+                text = "Ir para tela $name!",
+                fontSize = 30.sp,
+                color = Color.Blue
+
+            )
+        }
+    }
+
+}
+
+@Composable
+fun BotaoLigar(name: String, modifier: Modifier = Modifier, context: Context) {
+    Column (
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center){
+        Button(onClick={
+            val intent  = Intent(Intent.ACTION_DIAL, "tel:34984094854".toUri())
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+
+        },
+            modifier = modifier.fillMaxWidth()
+        ){
+            Text(
+                text = "Ligar para $name!",
+                fontSize = 30.sp,
+                color = Color.Blue
+
+            )
+        }
+    }
+
+}
+@Composable
+fun Greeting2(name: String, modifier: Modifier = Modifier, context: Context) {
+    Column (
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center){
+        Button(onClick={
+            val intent  = Intent(Intent.ACTION_DIAL, "tel:34984094854".toUri())
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+
+        },
+            modifier = modifier.fillMaxWidth()
+        ){
+            Text(
+                text = "Ligar para $name!",
+                fontSize = 30.sp,
+                color = Color.Blue
+
+            )
+        }
+    }
+
+}
 @Composable
 fun ChangeBackgroundColor(modifier: Modifier = Modifier) {
     val backgroundColor = remember { mutableStateOf(Color.White) }
