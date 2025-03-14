@@ -94,6 +94,32 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 }
 
+@Composable
+fun BotaoAnotherTela(name: String, modifier: Modifier = Modifier, context: Context) {
+    Column (
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center){
+        Button(onClick={
+            val intent = Intent(context, OneActivity::class.java).apply {
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra(KEYS.message, "HEI VIM DA MAIN")
+            }
+            context.startActivity(intent)
+
+        },
+            modifier = modifier.fillMaxWidth()
+        ){
+            Text(
+                text = "Ir para tela $name!",
+                fontSize = 30.sp,
+                color = Color.Blue
+
+            )
+        }
+    }
+
+}
+
 
 @Composable
 fun BotaoTrocarTela(name: String, modifier: Modifier = Modifier, context: Context) {

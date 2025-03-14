@@ -24,14 +24,20 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import br.edu.iftm.helloworldapp.ui.theme.HelloWorldAppTheme
 
+object KEYS {
+    val message = "br.edu.iftm.helloworldapp.MESSAGE"
+}
+
+
 class OneActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val message = intent?.getStringExtra(KEYS.message) ?: "opsss"
         enableEdgeToEdge()
         setContent {
             HelloWorldAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting3(name="Mara", context=applicationContext)
+                    Greeting3(name=message, context=applicationContext)
                 }
             }
         }
